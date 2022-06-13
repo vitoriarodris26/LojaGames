@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.generation.model.Produto;
 import com.generation.repository.CategoriaRepository;
 import com.generation.repository.ProdutoRepository;
@@ -50,25 +51,16 @@ public class ProdutoController {
 	
 	}
 	@PostMapping
-	public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
-		if (categoriaRepository.existsById(produto.getCategoria().getId()))
-			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build ();	
+	public ResponseEntity<Produto> postProduto (@Valid @RequestBody Produto produto){
+		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
 	}
 	
 	@PutMapping
-		public  ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto){
-		if (produtoRepository.existsById(produto.getId())){
-			if (produtoRepository.existsById(produto.getCategoria().getId())){
-				return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
-			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build ();
-			
-			}
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	public ResponseEntity<Produto> putPostagem (@RequestBody Produto produto){
+		return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
+	}
 		
-		
+	
 		@DeleteMapping ("/{id}")
 		public ResponseEntity <Produto> delete (@PathVariable Long id) {
 			

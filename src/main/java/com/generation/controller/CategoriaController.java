@@ -2,7 +2,9 @@ package com.generation.controller;
 
 
 
-	import java.util.List;
+
+
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -53,29 +55,20 @@ import com.generation.repository.ProdutoRepository;
 		
 		}
 		@PostMapping
-		public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
-			if (categoriaRepository.existsById(produto.getCategoria().getId()))
-				return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build ();	
+		public ResponseEntity<Categoria> postCategoria (@Valid @RequestBody Categoria categoria){
+			return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
 		}
 		
 		@PutMapping
-			public  ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto){
-			if (produtoRepository.existsById(produto.getId())){
-				if (produtoRepository.existsById(produto.getCategoria().getId())){
-					return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
-				
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build ();
-				
-				}
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-			}
-			
+		public ResponseEntity<Categoria> putCategoria (@RequestBody Categoria categoria){
+			return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(categoria));
+		}
+
 			
 			@DeleteMapping ("/{id}")
 			public ResponseEntity <Categoria> delete (@PathVariable Long id) {
 				
-				if (id == null || !produtoRepository.existsById(id)) {
+				if (id == null || !categoriaRepository.existsById(id)) {
 					return ResponseEntity.notFound().build(); 
 				}
 				
